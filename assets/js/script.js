@@ -14,6 +14,8 @@
     //get the details from the object array that we create
     //display name, image and ingredients as a card
 
+    //attr changes to hide things and unhide things.
+
 //click on a card
     //display modal with cocktail name, instruction, ingredients , image, stores near by
 
