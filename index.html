@@ -24,12 +24,22 @@
  
   <!-- logo image on landing page. Currently set to a place holder. -->
   <header>
-    <img class="rounded p-5 mx-auto d-block"
+    <img class="rounded p-5 mx-auto d-block" id="logo"
       src="./assets/images/download.png"
       alt="Place holder image.">
   </header>
 
-
+  <!-- Search Bar & submit button form. -->
+  <form class="d-flex align-items-center flex-column">
+    <!-- Adds the search bar makes it centered and responsive. -->
+    <div class="form-group">
+      <input class="form-control mr-sm-2" id="searchBar" type="search" placeholder="Search ingredient" autofocus>
+    </div>
+    <!-- Adds submit buttons and styles it with default bootstrap styles. -->
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" id="searchBtn">Search</button>
+    </div>
+  </form>
 
     <!-- link to jquery -->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
