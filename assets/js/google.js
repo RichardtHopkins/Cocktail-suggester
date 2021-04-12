@@ -6,20 +6,11 @@ function initMap() {
     const infowindow = new google.maps.InfoWindow();
     const map = new google.maps.Map(document.getElementById("map"), {
         center: sydney,
-        zoom: 8,
+        zoom: 11,
     });
     // Create the places service.
     const service = new google.maps.places.PlacesService(map);
-    let getNextPage;
-    const moreButton = document.getElementById("more");
-
-    moreButton.onclick = function () {
-        moreButton.disabled = true;
-
-        if (getNextPage) {
-            getNextPage();
-        }
-    };
+    
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -50,6 +41,16 @@ function initMap() {
 }
 // Perform a nearby search. 
 function nearbySearch(pos, service) {
+    let getNextPage;
+    const moreButton = document.getElementById("more");
+
+    moreButton.onclick = function () {
+        moreButton.disabled = true;
+
+        if (getNextPage) {
+            getNextPage();
+        }
+    };
     service.nearbySearch(
         { location: pos, radius: 5000, type: "liquor_store" },
 
