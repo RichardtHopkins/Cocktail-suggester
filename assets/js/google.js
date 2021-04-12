@@ -10,16 +10,16 @@ function initMap() {
     });
     // Create the places service.
     const service = new google.maps.places.PlacesService(map);
-    // let getNextPage;
-    // const moreButton = document.getElementById("more");
+    let getNextPage;
+    const moreButton = document.getElementById("more");
 
-    // moreButton.onclick = function () {
-    //   moreButton.disabled = true;
+    moreButton.onclick = function () {
+        moreButton.disabled = true;
 
-    //   if (getNextPage) {
-    //     getNextPage();
-    //   }
-    // };
+        if (getNextPage) {
+            getNextPage();
+        }
+    };
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -45,20 +45,20 @@ function initMap() {
     }
 
 
-    // Perform a nearby search. 
+
 
 }
-
+// Perform a nearby search. 
 function nearbySearch(pos, service) {
     service.nearbySearch(
         { location: pos, radius: 5000, type: "liquor_store" },
-        
+
         (results, status, pagination) => {
             console.log("nearbySearchcallback");
             console.log(results);
             console.log(status);
             if (status !== "OK" || !results) return;
-        
+
             addPlaces(results, map);
             moreButton.disabled = !pagination || !pagination.hasNextPage;
 
