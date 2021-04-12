@@ -1,3 +1,5 @@
+const pos = {};
+
 function initMap() {
     // Create the map.
     const sydney = { lat: -33, lng: 151 };
@@ -84,3 +86,4 @@ function addPlaces(places, map) {
       }
     }
 }
+initMap();
