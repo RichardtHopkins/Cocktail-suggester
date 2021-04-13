@@ -1,11 +1,14 @@
 //variables
-var searchButton = $(".searchButton");
+var searchButton = $("#searchBtn");
 var apiKey = "1";
+var userIngredient;
+var drinkCardList = [];
+var drinkCardIngredients = []
 
 //loop for persisting the data onto HMTL page
 for (var i = 0; i < localStorage.length; i++) {
     var ingredient = localStorage.getItem(i);
-    // console.log(localStorage.getItem("ingredient"));
+    console.log(localStorage.getItem("ingredient"));
     var ingredientName = $(".list-group").addClass("list-group-item");
     ingredientName.append("<li>" + ingredient + "</li>");
 }
@@ -16,15 +19,144 @@ var keyCount = 0;
 //fetch the list of drinks with ingredient that is searched
 
 //search button click event
+
 searchButton.click(function () {
-    var ingredientNameUrl = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/filter.php?i=" + ingredient;
+    userIngredient = $("#searchBar").val();
+    var ingredientNameUrl = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/filter.php?i=" + userIngredient;
     $.ajax({
         type: "GET",
         url: ingredientNameUrl
     }).then(function (response) {
-    });
+        for(i = 0; i < response.drinks.length; i++){
+            drinkCardList[i] = {} 
+            drinkCardList[i].name = response.drinks[i].strDrink;
+            drinkCardList[i].image = response.drinks[i].strDrinkThumb;
+        }
+        var drinkName
+        for(i = 0; i < drinkCardList.length; i++){
+            drinkName = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/search.php?s=" + drinkCardList[i].name;
+            !function(i){
+                $.ajax({
+                    type: "GET",
+                    url: drinkName,
+                }).then(function (response) {
+                    // console.log(response)
+                    // console.log(drinkCardList)
+                    // console.log(drinkCardList[i])
+                    drinkCardList[i].ingredients = {};
+                    drinkCardList[i].measures = {};
+                    for(j = 0; j < response.drinks.length; j++){
+                        if(drinkCardList[i].name === response.drinks[j].strDrink){
+                            for(k = 1; k < 15; k++){
+                                if(response.drinks[j]["strIngredient" + k] != null){
+                                    drinkCardList[i].ingredients["ingredient" + k] = response.drinks[j]["strIngredient" + k]
+                                    drinkCardList[i].measures["measure" + k] = response.drinks[j]["strMeasure" + k]
+                                }
+                            }
+                        }
+                    }
+                })
+            }(i)
+        // console.log(response)
+        // console.log(drinkCardList)
+        // console.log(userIngredient)
+        }
+    })
+    console.log(drinkCardList)
+})
+
+
+
+// var formSubmitHandler = function (event) {
+//     // event.preventDefault();
+
+//     const ingredient = ingredientInputEl.value.trim();
+
+//     if (ingredient) {
+//         getCocktailList(ingredient);
+//         ingredientHistoryArr.unshift({ ingredient })
+//         ingredientInputEl.value = '';
+//     } else {
+//         alert('Please enter an ingredient');
+//     }
+// };
+
+// //fetch the list of drinks with ingredient that is searched
+// var getCocktailList = function (ingredient) {
+//     let ingredientNameUrl = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/filter.php?i=" + ingredient;
+
+//     fetch(ingredientNameUrl)
+//         .then(function (response) {
+//             if (response.ok) {
+//                 response.json().then(function (data) {
+//                     console.log(data)
+//                     let id = data.drinks[0].idDrink;
+//                     getCocktailSelected(id);
+//                 });
+//             } else {
+//                 alert('Error: ' + response.statusText);
+//             }
+//         })
+//         .catch(function (error) {
+//             alert('Unable to retrieve data');
+//         });
+// };
+// //fetch the details of the cocktail from the id
+// var getCocktailSelected = function (id) {
+
+//     let cocktailSelectedUrl = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + id;
+
+//     fetch(cocktailSelectedUrl)
+//         .then(function (response) {
+//             if (response.ok) {
+//                 response.json().then(function (data) {
+//                     console.log(data)
+//                     sortData(data);
+//                 });
+//             } else {
+//                 alert('Error: ' + response.statusText);
+//             }
+//         })
+//         .catch(function (error) {
+//             alert('Unable to retrieve data');
+//         });
+
+// }
+
+// var sortData = function (data) {
+//     var cocktail = data.drinks[0];
+//     var ingredients = [];
+//     for (var i = 1; i <= 15; i++) {
+//         var ingredient = cocktail["strIngredient" + i]; // e.g. strIngredient1
+//         if (ingredient) {
+//             var measure = cocktail["strMeasure" + i]; // e.g. strMeasure1
+//             if (measure) {
+//                 ingredient = measure.trim() + " " + ingredient;
+//             }
+//             ingredients.push(ingredient);
+//         }
+//     }
+//     var ingredientsList = ingredients.join(", ");
+//     console.log(ingredientsList);
+//     //e.g. 1/2 oz Gin, 1/2 oz Light rum, 1/2 oz Tequila, 1/2 oz Triple sec, 1/2 oz Vodka, 1/2 oz Coca-Cola, 1-2 dash Sweet and sour, 1 wedge Bitters, Garnish with Lemon
+//     var image = data.drinks[i].strDrinkThumb;
+//     var name = data.drinks[i].strDrink;
+//     var instructions = data.drinks[i].strInstructions;
+//     var glass = data.drinks[i].strGlass;
+//     var alcoholic = data.drinks[i].strAlcoholic;
+//     var category = data.drinks[i].strCategory;
+//     ingredients
+// }
+
+// // this.setState({ cocktail })
+// // console.log(cocktail);
+// // console.log(drinks);
+// // console.log(ingredients);
+
+// formSubmitHandler(searchButton.click())
 
     //add drinks to the array using .push();
+    // for(i = 0; i )
     //for fetch json array.
         //if(ingreent is included)
             //add to page
@@ -45,6 +177,3 @@ searchButton.click(function () {
     //display modal with cocktail name, instruction, ingredients , image, stores near by
 
 // make search bar fixed to bottom after search. 
-
-//event listener to capture previous searched cocktails and store in local storage
-});
