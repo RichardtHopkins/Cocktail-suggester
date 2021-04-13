@@ -1,5 +1,9 @@
 const pos = {};
 
+document.getElementById("map-display").addEventListener("click", function(e){
+    document.getElementById("map-container").style.display = "flex";
+})
+
 function initMap() {
     // Create the map.
     const sydney = { lat: -33, lng: 151 };
