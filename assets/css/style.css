@@ -6,9 +6,9 @@ body {
   padding: 0;
 }
 
-#container {
+#map-container {
   height: 100%;
-  display: flex;
+  display: none;
 }
 
 #sidebar {
