@@ -61,92 +61,41 @@ searchButton.click(function () {
         // console.log(drinkCardList)
         // console.log(userIngredient)
         }
-    })
-    console.log(drinkCardList)
-})
+    });
+     
+    // build Searh array
+    var cocktailDetails = [
+        Cocktailname,
+        Cocktailimage,
+        Cocktailingredients,
+        ];
 
+    var Cocktailname = response.drinks[i].strDrink;
+    var Cocktailimage = response.drinks[i].strDrinkThumb;
+    var Cocktailingredients = drinkCardList[i].ingredients;
 
-
-// var formSubmitHandler = function (event) {
-//     // event.preventDefault();
-
-//     const ingredient = ingredientInputEl.value.trim();
-
-//     if (ingredient) {
-//         getCocktailList(ingredient);
-//         ingredientHistoryArr.unshift({ ingredient })
-//         ingredientInputEl.value = '';
-//     } else {
-//         alert('Please enter an ingredient');
-//     }
-// };
-
-// //fetch the list of drinks with ingredient that is searched
-// var getCocktailList = function (ingredient) {
-//     let ingredientNameUrl = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/filter.php?i=" + ingredient;
-
-//     fetch(ingredientNameUrl)
-//         .then(function (response) {
-//             if (response.ok) {
-//                 response.json().then(function (data) {
-//                     console.log(data)
-//                     let id = data.drinks[0].idDrink;
-//                     getCocktailSelected(id);
-//                 });
-//             } else {
-//                 alert('Error: ' + response.statusText);
-//             }
-//         })
-//         .catch(function (error) {
-//             alert('Unable to retrieve data');
-//         });
-// };
-// //fetch the details of the cocktail from the id
-// var getCocktailSelected = function (id) {
-
-//     let cocktailSelectedUrl = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + id;
-
-//     fetch(cocktailSelectedUrl)
-//         .then(function (response) {
-//             if (response.ok) {
-//                 response.json().then(function (data) {
-//                     console.log(data)
-//                     sortData(data);
-//                 });
-//             } else {
-//                 alert('Error: ' + response.statusText);
-//             }
-//         })
-//         .catch(function (error) {
-//             alert('Unable to retrieve data');
-//         });
-
-// }
-
-// var sortData = function (data) {
-//     var cocktail = data.drinks[0];
-//     var ingredients = [];
-//     for (var i = 1; i <= 15; i++) {
-//         var ingredient = cocktail["strIngredient" + i]; // e.g. strIngredient1
-//         if (ingredient) {
-//             var measure = cocktail["strMeasure" + i]; // e.g. strMeasure1
-//             if (measure) {
-//                 ingredient = measure.trim() + " " + ingredient;
-//             }
-//             ingredients.push(ingredient);
-//         }
-//     }
-//     var ingredientsList = ingredients.join(", ");
-//     console.log(ingredientsList);
-//     //e.g. 1/2 oz Gin, 1/2 oz Light rum, 1/2 oz Tequila, 1/2 oz Triple sec, 1/2 oz Vodka, 1/2 oz Coca-Cola, 1-2 dash Sweet and sour, 1 wedge Bitters, Garnish with Lemon
-//     var image = data.drinks[i].strDrinkThumb;
-//     var name = data.drinks[i].strDrink;
-//     var instructions = data.drinks[i].strInstructions;
-//     var glass = data.drinks[i].strGlass;
-//     var alcoholic = data.drinks[i].strAlcoholic;
-//     var category = data.drinks[i].strCategory;
-//     ingredients
-// }
+    // build cocktail Search card element
+    var newCocktailCardEl = $(`
+    <div style='width: 400px' class="column is-narrow">
+    <article class="message is-link">
+        <div class="message-header">
+            <p>${Cocktailname}</p>
+        </div>
+        <div class="message-body">
+            <div class="board-item">
+                <div class="board-item-content"><a href="${Cocktailimage}" target="_blank"><img src="${Cocktailimage}" alt="cocktail-thumb" width="100"
+                        height="150"></a> </div>
+            <br>
+            <div id="ingredients-${Cocktailname}"> ${ocktailingredients}</div>
+            <br>
+            </div>
+        </div>
+    </article>
+    </div>
+          `);
+    // render the card on the page
+    $("#cocktail-card-element").append(newCocktailCardEl);
+  });
 
 // // this.setState({ cocktail })
 // // console.log(cocktail);
@@ -177,3 +126,25 @@ searchButton.click(function () {
     //display modal with cocktail name, instruction, ingredients , image, stores near by
 
 // make search bar fixed to bottom after search. 
+
+ 
+    //fetch for image
+    //get the details from the object array that we create
+    //display name, image and ingredients as a card
+
+    //attr changes to hide things and unhide things.
+//fetch places with a range.
+    //return a list of stores
+    //same as above
+
+
+
+//click on a card
+    //display modal with cocktail name, instruction, ingredients , image, stores near by
+        //  if(attrShown === "imgNum" + count) {
+        //     console.log("true");
+
+
+// make search bar fixed to bottom after search. 
+
+//event listener to capture previous searched cocktails and store in local storage
