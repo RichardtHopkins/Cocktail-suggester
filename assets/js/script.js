@@ -3,7 +3,8 @@ var searchButton = $("#searchBtn");
 var apiKey = "1";
 var userIngredient;
 var drinkCardList = [];
-var drinkCardIngredients = []
+var drinkCardIngredients = [];
+
 
 //loop for persisting the data onto HMTL page
 for (var i = 0; i < localStorage.length; i++) {
@@ -12,6 +13,7 @@ for (var i = 0; i < localStorage.length; i++) {
     var ingredientName = $(".list-group").addClass("list-group-item");
     ingredientName.append("<li>" + ingredient + "</li>");
 }
+
 
 //key count for local storage 
 var keyCount = 0;
@@ -63,10 +65,49 @@ searchButton.click(function () {
         }
     })
     console.log(drinkCardList)
+
+    //saves search to local storage.
+    saveSearch();
 })
 
 
+function saveSearch(){
 
+    //declares the object with an array in it to save the searches to.
+    var prevSearches = {
+        recentSearches: []
+    }
+    //gets the value of the search bar and assigns it to latest search
+    var latestSearch = $('#searchBar').val();
+    console.log(latestSearch);
+    
+    //check to see if the search is null. if it is console log that there was no search.
+    if(latestSearch !== null){
+        var history = JSON.parse(localStorage.getItem('Previous-Searches'));    //get the previouse searches object and store it in history
+        history.recentSearches.push(latestSearch);                              // push the value from the search bar to the recent searches array.
+        localStorage.setItem('Previous-Searches', JSON.stringify(history));     //set the local storage to be the new array.
+    }else{
+        console.log('nothing entered.')
+    }
+  
+};
+
+
+
+
+
+
+
+
+
+// function onPageLoad(){
+
+//     var prevSearches = {
+//         recentSearches: []
+//     }
+//     localStorage.setItem('Previous-Searches', JSON.stringify(prevSearches));
+
+// }
 // var formSubmitHandler = function (event) {
 //     // event.preventDefault();
 
