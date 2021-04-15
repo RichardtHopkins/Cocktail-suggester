@@ -5,6 +5,14 @@ var userIngredient;
 var drinkCardList = [];
 var drinkCardIngredients = [];
 
+//declares the array and sets it in local storage.
+var recentSearches = [];
+if(!recentSearches){
+    recentSearches.push(JSON.parse(localStorage.getItem('history')));
+    localStorage.setItem('history', JSON.stringify(recentSearches));
+}
+
+
 
 //loop for persisting the data onto HMTL page
 for (var i = 0; i < localStorage.length; i++) {
@@ -68,33 +76,46 @@ searchButton.click(function () {
 
     //saves search to local storage.
     saveSearch();
+
 })
 
 
-function saveSearch(){
 
-    //declares the object with an array in it to save the searches to.
-    var prevSearches = {
-        recentSearches: []
-    }
-    //gets the value of the search bar and assigns it to latest search
-    var latestSearch = $('#searchBar').val();
-    console.log(latestSearch);
-    
-    //check to see if the search is null. if it is console log that there was no search.
-    if(latestSearch !== null){
-        var history = JSON.parse(localStorage.getItem('Previous-Searches'));    //get the previouse searches object and store it in history
-        history.recentSearches.push(latestSearch);                              // push the value from the search bar to the recent searches array.
-        localStorage.setItem('Previous-Searches', JSON.stringify(history));     //set the local storage to be the new array.
-    }else{
-        console.log('nothing entered.')
-    }
+
+function saveSearch(){
+   
+     //gets the value of the search bar and assigns it to latest search
+     var latestSearch = $('#searchBar').val().trim();
+
+     //check to see if the search is null. if it is console log that there was no search.
+     if(latestSearch && !recentSearches.includes(latestSearch)){
+        recentSearches = JSON.parse(localStorage.getItem('history')) || [];                     //get the previouse searches object and store it in history
+        recentSearches.push(latestSearch);                                                      // push the value from the search bar to the recent searches array.
+        localStorage.setItem('history', JSON.stringify(recentSearches));                        //set the local storage to be the new array.
+
+        //creates a new button and adds it to the top of the recent search list.
+        $('#searchHistory').prepend('<div class="p-2"><button type="button" class="btn-primary histBtn">' + latestSearch +'</button></div>');
+        
+     }else{
+         console.log('nothing entered.')
+     }
+
+     
   
 };
 
+//creates recent search buttons on page load.
+function createBtns(){
+    recentSearches = JSON.parse(localStorage.getItem('history')) || [];
+    for(var i = 0; i <= recentSearches.length -1; i++){
+        if(recentSearches){
+            $('#searchHistory').prepend('<div class="p-2 form-group"><button type="button" class="btn-primary histBtn">' + recentSearches[i] +'</button></div>');  
+        }
+    }
+}
 
 
-
+createBtns();
 
 
 
