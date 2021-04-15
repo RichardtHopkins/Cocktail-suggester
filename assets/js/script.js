@@ -40,61 +40,61 @@ searchButton.click(function () {
                     type: "GET",
                     url: drinkName,
                 }).then(function (response) {
-                    // console.log(response)
+                    console.log(response)
                     // console.log(drinkCardList)
                     // console.log(drinkCardList[i])
                     drinkCardList[i].ingredients = {};
                     drinkCardList[i].measures = {};
                     for(j = 0; j < response.drinks.length; j++){
-                        if(drinkCardList[i].name === response.drinks[j].strDrink){
+                        if(drinkCardList[i].name === response.drinks[j].strDrink){ 
                             for(k = 1; k < 15; k++){
+                                    
+                                // build Searh array
+                                var cocktailDetails = [
+                                    Cocktailname,
+                                    Cocktailimage,
+                                    Cocktailingredients,
+                                    ];
+                                
+                                var Cocktailname = drinkCardList[i].name;
+                                var Cocktailimage = drinkCardList[i].image;
+                                var Cocktailingredients = drinkCardList[i].ingredients;
+                                var newCocktailCardEl = $(`
+                                                    <div style='width: 400px' class=" is-wide">
+                                                    <article class="message is-link">
+                                                        <div class="message-header">
+                                                            <p>${Cocktailname}</p>
+                                                        </div>
+                                                        <div class="message-body">
+                                                            <div class="board-item">
+                                                                <div class="board-item-content"><a href="${Cocktailimage}" target="_blank"><img src="${Cocktailimage}" alt="cocktail-thumb" width="100"
+                                                                    height="150"></a> </div>
+                                                        <br>
+                                                        <div id="ingredients-${Cocktailname}"> ${Cocktailingredients}</div>
+                                                        <br>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                                </div>
+                                                        `);
+                                                        // render the card on the page
+                                                $("#cocktail-card-element").append(newCocktailCardEl); 
+                                            
                                 if(response.drinks[j]["strIngredient" + k] != null){
                                     drinkCardList[i].ingredients["ingredient" + k] = response.drinks[j]["strIngredient" + k]
                                     drinkCardList[i].measures["measure" + k] = response.drinks[j]["strMeasure" + k]
                                 }
+                            // build cocktail Search card element
                             }
                         }
                     }
-                })
+            })
             }(i)
         // console.log(response)
         // console.log(drinkCardList)
         // console.log(userIngredient)
         }
     });
-     
-    // build Searh array
-    var cocktailDetails = [
-        Cocktailname,
-        Cocktailimage,
-        Cocktailingredients,
-        ];
-
-    var Cocktailname = response.drinks[i].strDrink;
-    var Cocktailimage = response.drinks[i].strDrinkThumb;
-    var Cocktailingredients = drinkCardList[i].ingredients;
-
-    // build cocktail Search card element
-    var newCocktailCardEl = $(`
-    <div style='width: 400px' class="column is-narrow">
-    <article class="message is-link">
-        <div class="message-header">
-            <p>${Cocktailname}</p>
-        </div>
-        <div class="message-body">
-            <div class="board-item">
-                <div class="board-item-content"><a href="${Cocktailimage}" target="_blank"><img src="${Cocktailimage}" alt="cocktail-thumb" width="100"
-                        height="150"></a> </div>
-            <br>
-            <div id="ingredients-${Cocktailname}"> ${ocktailingredients}</div>
-            <br>
-            </div>
-        </div>
-    </article>
-    </div>
-          `);
-    // render the card on the page
-    $("#cocktail-card-element").append(newCocktailCardEl);
   });
 
 // // this.setState({ cocktail })
