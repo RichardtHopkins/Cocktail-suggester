@@ -80,3 +80,20 @@ button:disabled {
   color: #c5d4f0;
   cursor: auto;
 }
+
+#searchBar {
+  text-align: center;
+}
+
+.ingredient-form-results {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  right: 10vw;
+  left: 10vw;
+}
+
+.hide {
+  visibility: hidden;
+  display: none;
+}

@@ -4,7 +4,9 @@ var apiKey = "1";
 var userIngredient;
 var drinkCardList = [];
 var drinkCardIngredients = []
-
+var logo = $("#logo")
+var input=$("#searchBar")
+var formEl = $("#ingredient-form")
 //loop for persisting the data onto HMTL page
 for (var i = 0; i < localStorage.length; i++) {
     var ingredient = localStorage.getItem(i);
@@ -21,6 +23,10 @@ var keyCount = 0;
 //search button click event
 
 searchButton.click(function () {
+    logo.addClass("hide")
+    formEl.attr("class","ingredient-form-results")
+    formEl.children().css("margin","0.5rem")
+
     userIngredient = $("#searchBar").val();
     var ingredientNameUrl = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/filter.php?i=" + userIngredient;
     $.ajax({
