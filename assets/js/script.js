@@ -4,6 +4,7 @@ var apiKey = "1";
 var userIngredient;
 var drinkCardList = [];
 var drinkCardIngredients = []
+var Cocktailingredients = []
 
 //loop for persisting the data onto HMTL page
 for (var i = 0; i < localStorage.length; i++) {
@@ -13,89 +14,109 @@ for (var i = 0; i < localStorage.length; i++) {
     ingredientName.append("<li>" + ingredient + "</li>");
 }
 
-//key count for local storage 
+//key count for local storage
 var keyCount = 0;
 
-//fetch the list of drinks with ingredient that is searched
-
-//search button click event
-
+//search function on button click
 searchButton.click(function () {
+    //initialising ingredient search data
     userIngredient = $("#searchBar").val();
     var ingredientNameUrl = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/filter.php?i=" + userIngredient;
     $.ajax({
         type: "GET",
         url: ingredientNameUrl
     }).then(function (response) {
+
+        //populating array where drink details are pulled from
         for(i = 0; i < response.drinks.length; i++){
             drinkCardList[i] = {} 
             drinkCardList[i].name = response.drinks[i].strDrink;
             drinkCardList[i].image = response.drinks[i].strDrinkThumb;
+            
         }
         var drinkName
+
+        //initialising drink name search data
         for(i = 0; i < drinkCardList.length; i++){
+            drinkCardList[i].totalIngredients = 1
             drinkName = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/search.php?s=" + drinkCardList[i].name;
             !function(i){
                 $.ajax({
                     type: "GET",
                     url: drinkName,
                 }).then(function (response) {
-                    console.log(response)
-                    // console.log(drinkCardList)
-                    // console.log(drinkCardList[i])
+
+                    //creating objects for a drink's ingredient and measures
                     drinkCardList[i].ingredients = {};
                     drinkCardList[i].measures = {};
+
+                    //populating the objects with ingredient and measure data
                     for(j = 0; j < response.drinks.length; j++){
                         if(drinkCardList[i].name === response.drinks[j].strDrink){ 
                             for(k = 1; k < 15; k++){
-                                    
-                                // build Searh array
-                                var cocktailDetails = [
-                                    Cocktailname,
-                                    Cocktailimage,
-                                    Cocktailingredients,
-                                    ];
-                                
-                                var Cocktailname = drinkCardList[i].name;
-                                var Cocktailimage = drinkCardList[i].image;
-                                var Cocktailingredients = drinkCardList[i].ingredients;
-                                var newCocktailCardEl = $(`
-                                                    <div style='width: 400px' class=" is-wide">
-                                                    <article class="message is-link">
-                                                        <div class="message-header">
-                                                            <p>${Cocktailname}</p>
-                                                        </div>
-                                                        <div class="message-body">
-                                                            <div class="board-item">
-                                                                <div class="board-item-content"><a href="${Cocktailimage}" target="_blank"><img src="${Cocktailimage}" alt="cocktail-thumb" width="100"
-                                                                    height="150"></a> </div>
-                                                        <br>
-                                                        <div id="ingredients-${Cocktailname}"> ${Cocktailingredients}</div>
-                                                        <br>
-                                                        </div>
-                                                    </div>
-                                                </article>
-                                                </div>
-                                                        `);
-                                                        // render the card on the page
-                                                $("#cocktail-card-element").append(newCocktailCardEl); 
-                                            
                                 if(response.drinks[j]["strIngredient" + k] != null){
-                                    drinkCardList[i].ingredients["ingredient" + k] = response.drinks[j]["strIngredient" + k]
-                                    drinkCardList[i].measures["measure" + k] = response.drinks[j]["strMeasure" + k]
+                                    if(response.drinks[j]["strMeasure" + k] != null){
+                                        drinkCardList[i].ingredients["ingredient" + k] = response.drinks[j]["strIngredient" + k]
+                                        drinkCardList[i].measures["measure" + k] = response.drinks[j]["strMeasure" + k]
+                                        drinkCardList[i].totalIngredients ++
+                                    } else {
+                                        drinkCardList[i].ingredients["ingredient" + k] = response.drinks[j]["strIngredient" + k]
+                                        drinkCardList[i].totalIngredients ++
+                                    }
                                 }
-                            // build cocktail Search card element
                             }
                         }
                     }
-            })
-            }(i)
-        // console.log(response)
-        // console.log(drinkCardList)
-        // console.log(userIngredient)
+
+                    //building the html to display drink cards
+
+                    //initialising variables
+                    var Cocktailname =drinkCardList[i].name;
+                    var Cocktailimage = drinkCardList[i].image;
+                    Cocktailingredients[i] = "<h3>Ingredients</h3>"
+
+                    //looping through array to concatenate measure and drink data; creates a new list item for each ingredient and its measure
+                    for(j = 1; j < drinkCardList[i].totalIngredients; j++){
+                        if(drinkCardList[i].measures["measure" + j] != null){
+                            Cocktailingredients[i] =  Cocktailingredients[i] + "<li>" + 
+                            drinkCardList[i].measures["measure" + j] +
+                            " " + 
+                            drinkCardList[i].ingredients["ingredient" + j]; + "</li>"
+                        } else {
+                            Cocktailingredients[i] = Cocktailingredients[i] + "<li>" +
+                            " " + drinkCardList[i].ingredients["ingredient" + j] + "</li>"
+                        }
+                    }
+
+                    //construct html card for each drink
+                    var newCocktailCardEl = $(`
+                                        <div style='width: 400px' class=" is-wide">
+                                        <article class="message is-link">
+                                            <div class="message-header">
+                                                <h2>${Cocktailname}</h2>
+                                            </div>
+                                            <div class="message-body">
+                                                <div class="board-item">
+                                                    <div class="board-item-content"><a href="${Cocktailimage}" target="_blank"><img src="${Cocktailimage}" alt="cocktail-thumb" width="100"
+                                                        height="150"></a> </div>
+                                            <br>
+                                            <div id="ingredients-${Cocktailname}">
+                                                <ul>
+                                                    ${Cocktailingredients[i]}
+                                                </ul>
+                                            </div>
+                                            <br>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    </div>
+                                            `);
+                                    $("#cocktail-card-element").append(newCocktailCardEl);
+                })
+        }(i)
         }
     });
-  });
+});
 
 // // this.setState({ cocktail })
 // // console.log(cocktail);
