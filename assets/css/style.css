@@ -102,4 +102,5 @@ button:disabled {
 .hide {
   visibility: hidden;
   display: none;
+  height: 0;
 }
