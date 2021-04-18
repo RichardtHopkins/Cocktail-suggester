@@ -7,6 +7,17 @@ var drinkCardIngredients = []
 var logo = $("#logo")
 var input=$("#searchBar")
 var formEl = $("#ingredient-form")
+var drinkCardIngredients = [];
+
+//declares the array and sets it in local storage.
+var recentSearches = [];
+if(!recentSearches){
+    recentSearches.push(JSON.parse(localStorage.getItem('history')));
+    localStorage.setItem('history', JSON.stringify(recentSearches));
+}
+
+
+
 //loop for persisting the data onto HMTL page
 for (var i = 0; i < localStorage.length; i++) {
     var ingredient = localStorage.getItem(i);
