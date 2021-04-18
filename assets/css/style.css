@@ -4,6 +4,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  background: linear-gradient(+45deg, #23d5ab, #ee7752, #23a6d5, #e73c7e);
 }
 
 #map-container {
@@ -30,6 +31,11 @@ body {
 #sidebar {
   display: flex;
   flex-direction: column;
+}
+
+img {
+  height: 50%;
+  width: 50%;
 }
 
 h2 {
