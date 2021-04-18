@@ -6,6 +6,10 @@ body {
   padding: 0;
 }
 
+#logo {
+  width: 90vw;
+}
+
 #container {
   height: 100%;
   display: flex;
@@ -79,4 +83,12 @@ button:disabled {
   background-color: #9fc1ee;
   color: #c5d4f0;
   cursor: auto;
+}
+
+.ingredient-form-results {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  right: 10vw;
+  left: 10vw;
 }
