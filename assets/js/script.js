@@ -7,6 +7,7 @@ var drinkCardIngredients = []
 var logo = $("#logo")
 var input=$("#searchBar")
 var formEl = $("#ingredient-form")
+
 var drinkCardIngredients = [];
 
 //declares the array and sets it in local storage.
@@ -25,6 +26,7 @@ for (var i = 0; i < localStorage.length; i++) {
     var ingredientName = $(".list-group").addClass("list-group-item");
     ingredientName.append("<li>" + ingredient + "</li>");
 }
+
 
 //key count for local storage 
 var keyCount = 0;
@@ -80,10 +82,62 @@ searchButton.click(function () {
         }
     })
     console.log(drinkCardList)
+
+    //saves search to local storage.
+    saveSearch();
+
 })
 
 
 
+
+function saveSearch(){
+   
+     //gets the value of the search bar and assigns it to latest search
+     var latestSearch = $('#searchBar').val().trim();
+
+     //check to see if the search is null. if it is console log that there was no search.
+     if(latestSearch && !recentSearches.includes(latestSearch)){
+        recentSearches = JSON.parse(localStorage.getItem('history')) || [];                     //get the previouse searches object and store it in history
+        recentSearches.push(latestSearch);                                                      // push the value from the search bar to the recent searches array.
+        localStorage.setItem('history', JSON.stringify(recentSearches));                        //set the local storage to be the new array.
+
+        //creates a new button and adds it to the top of the recent search list.
+        $('#searchHistory').prepend('<div class="p-2"><button type="button" class="btn-primary histBtn">' + latestSearch +'</button></div>');
+        
+     }else{
+         console.log('nothing entered.')
+     }
+
+     
+  
+};
+
+//creates recent search buttons on page load.
+function createBtns(){
+    recentSearches = JSON.parse(localStorage.getItem('history')) || [];
+    for(var i = 0; i <= recentSearches.length -1; i++){
+        if(recentSearches){
+            $('#searchHistory').prepend('<div class="p-2 form-group"><button type="button" class="btn-primary histBtn">' + recentSearches[i] +'</button></div>');  
+        }
+    }
+}
+
+
+createBtns();
+
+
+
+
+
+// function onPageLoad(){
+
+//     var prevSearches = {
+//         recentSearches: []
+//     }
+//     localStorage.setItem('Previous-Searches', JSON.stringify(prevSearches));
+
+// }
 // var formSubmitHandler = function (event) {
 //     // event.preventDefault();
 
