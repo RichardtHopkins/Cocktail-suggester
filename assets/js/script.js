@@ -201,9 +201,22 @@ var buttonHandler = function (event) {
 searchButton.click(formSubmitHandler);
     createBtns();
 
+//lookup full cocktail details using id
+// www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007
 
-
-
+//var drinkID
+//        for(i = 0; i < drinkCardList.length; i++){
+  //          drinkCardList[i].instructions = response.drinks[i].strInstructions
+    //        drinkID = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/lookup.php?i=" + drinkCardList[i].id;
+      //      !function(i){
+        //        $.ajax({
+          //          type: "GET",
+            //        url: drinkID,
+              //  }).then(function (response) {
+//
+//
+  //                  drinkCardList[i].instructions = {};
+                
 
 
 // function onPageLoad(){
