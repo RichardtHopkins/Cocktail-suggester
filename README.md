@@ -22,6 +22,7 @@ A group project to display our use of multiple API's
 ## Screenshots
 
 The following image shows the web application's appearance and functionality:
+![]()
 
 
 
