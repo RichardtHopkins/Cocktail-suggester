@@ -169,7 +169,7 @@ function saveSearch(){
         localStorage.setItem('history', JSON.stringify(recentSearches));                        //set the local storage to be the new array.
 
         //creates a new button and adds it to the top of the recent search list.
-        $('#searchHistory').prepend('<div><button type="button" class="d-flex w-100 btn-light border p-2 histBtn">' + latestSearch +'</button></div>');
+        $('#searchHistory').prepend('<div class="history-group"><button type="button" class="d-flex w-100 btn-light border p-2 histBtn">' + latestSearch +'</button></div>');
         
      }else{
          console.log('nothing entered.')
