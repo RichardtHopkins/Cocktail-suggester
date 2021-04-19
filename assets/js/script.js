@@ -7,7 +7,7 @@ var Cocktailingredients = []
 var logo = $("#logo")
 var input=$("#searchBar")
 var formEl = $("#ingredient-form")
-var formSubmitEl = document.querySelector("#form-group")
+var formSubmitEl = document.querySelector("#searchBar")
 var histBtn
 
 var drinkCardIngredients = [];
@@ -37,6 +37,7 @@ var keyCount = 0;
 
 //search button click event
 var formSubmitHandler = function (event) {
+    console.log("call submit form handler");
     event.preventDefault();
   
     var userIngredient = $("#searchBar").val().trim();
@@ -53,12 +54,13 @@ var getCocktails = function(userIngredient) {
     logo.addClass("hide")
     //formEl.attr("class","ingredient-form-results")
     //formEl.children().css("margin","0.5rem")
-
+console.log(userIngredient);
     var ingredientNameUrl = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/filter.php?i=" + userIngredient;
     $.ajax({
         type: "GET",
         url: ingredientNameUrl
     }).then(function (response) {
+        console.log(JSON.stringify(response, null, 2));
         for(i = 0; i < response.drinks.length; i++){
             drinkCardList[i] = {} 
             drinkCardList[i].name = response.drinks[i].strDrink;
@@ -196,7 +198,7 @@ var buttonHandler = function (event) {
     console.log(event.target);
 }
 
-formSubmitEl.addEventListener('submit', formSubmitHandler);
+searchButton.click(formSubmitHandler);
     createBtns();
 
 
