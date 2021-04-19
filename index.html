@@ -18,53 +18,51 @@
 </head>
 
 <body>
-
-  <!-- logo image on landing page. Currently set to a place holder. -->
+  <!-- logo image on landing page. -->
   <header>
-    <img class="rounded p-5 mx-auto d-block img-fluid unlock-icon" id="logo" src="./assets/images/logo.png" alt="Place holder image.">
+    <img class="rounded p-5 mx-auto d-block img-fluid unlock-icon" id="logo" src="./assets/images/logo.png"
+      alt="Place holder image.">
   </header>
+  <section class="container my-5">
+    <div class="row">
+      <!-- Search Bar & submit button form. -->
+      <div id="search" class="col-12 col-md-4 col-xl-3">
+        <form id="ingredient-form">
+          <!-- Adds the search bar makes it centered and responsive. -->
+          <div class="form-group">
+            <input class="form-control" id="searchBar" type="search" placeholder="Enter an ingredient" autofocus>
+            <button type="button" class="btn btn-primary" id="searchBtn">Find me a cocktail!</button>
+          </div>
+          <div id="map-display">
+            <button type="button" class="btn btn-primary" id="mapBtn">Show Liquor Stores</button>
+          </div>
+        </form>
+        <div>
+          <div id="searchHistory" class="past-search-buttons"></div>
+        </div>
+      </div>
+      <!-- section for search history. -->
 
-  <!-- Search Bar & submit button form. -->
-  <form class="d-flex align-items-center flex-column" id="ingredient-form">
-    <!-- Adds the search bar makes it centered and responsive. -->
-    <div class="form-group">
-      <input class="form-control mr-sm-2" id="searchBar" type="search" placeholder="Enter an ingredient" autofocus>
+      <div id="main-container" class="col-12 col-md-8 col-xl-9">
+        <!--container for the cocktail cards-->
+        <div id="cocktail-card-element"
+          class="level-item d-flex flex-row align-items-top justify-content-center text-center"
+          style="flex-wrap: wrap; align-items: stretch;">
+        </div>
+
+        <!--container to hold the Map and Results-->
+        <div id="map-container">
+          <div id="map"></div>
+          <div id="sidebar">
+            <h2>Results</h2>
+            <ul id="places"></ul>
+            <button id="more">Load more results</button>
+          </div>
+        </div>
+        
+      </div>
     </div>
-    <!-- Adds submit buttons and styles it with default bootstrap styles. -->
-    <div class="form-group">
-      <button type="button" class="btn btn-primary" id="searchBtn">Find me a cocktail!</button>
-    </div>
-    <div id="map-display">
-      <button type="button" class="btn btn-primary" id="mapBtn">Show Liquor Stores</button>
-    </div>
-  </form>
-
-
-
-
-    <!-- section for search history. -->
-    <section>
-      <h2>
-        Recent Searches:
-      </h2>
-      <section id="searchHistory">
-
-      </section>
-    </section>
-
-
-  <!--container to hold the Map and Results-->
-  <div id="map-container">
-    <div id="map"></div>
-    <div id="sidebar">
-      <h2>Results</h2>
-      <ul id="places"></ul>
-      <button id="more">Load more results</button>
-    </div>
-  </div>
-
-  <div id="cocktail-card-element" class="level-item d-flex flex-row align-items-top justify-content-center text-center" style="flex-wrap: wrap; align-items: stretch;">
-  </div>
+  </section>
 
   <!-- link to jquery -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

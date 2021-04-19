@@ -38,8 +38,8 @@ var keyCount = 0;
 searchButton.click(function () {
     $("#cocktail-card-element").html('')
     logo.addClass("hide")
-    formEl.attr("class","ingredient-form-results")
-    formEl.children().css("margin","0.5rem")
+    //formEl.attr("class","ingredient-form-results")
+    //formEl.children().css("margin","0.5rem")
 
     userIngredient = $("#searchBar").val();
     var ingredientNameUrl = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/filter.php?i=" + userIngredient;
@@ -155,7 +155,7 @@ function saveSearch(){
         localStorage.setItem('history', JSON.stringify(recentSearches));                        //set the local storage to be the new array.
 
         //creates a new button and adds it to the top of the recent search list.
-        $('#searchHistory').prepend('<div class="p-2"><button type="button" class="btn-primary histBtn">' + latestSearch +'</button></div>');
+        $('#searchHistory').prepend('<div><button type="button" class="btn-primary histBtn">' + latestSearch +'</button></div>');
         
      }else{
          console.log('nothing entered.')
@@ -170,7 +170,7 @@ function createBtns(){
     recentSearches = JSON.parse(localStorage.getItem('history')) || [];
     for(var i = 0; i <= recentSearches.length -1; i++){
         if(recentSearches){
-            $('#searchHistory').prepend('<div class="p-2 form-group"><button type="button" class="btn-primary histBtn">' + recentSearches[i] +'</button></div>');  
+            $('#searchHistory').prepend('<div class="form-group"><button type="button" class="btn-primary histBtn">' + recentSearches[i] +'</button></div>');  
         }
     }
 }
