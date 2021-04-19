@@ -39,8 +39,8 @@ var keyCount = 0;
 var formSubmitHandler = function (event) {
     event.preventDefault();
   
-    const userIngredient = $("#searchBar").value.trim();
-  
+    var userIngredient = $("#searchBar").val().trim();
+    console.log(userIngredient);
     if (userIngredient) {
       getCocktails(userIngredient);
     } else {
@@ -172,6 +172,7 @@ function saveSearch(){
      }else{
          console.log('nothing entered.')
      }
+     document.querySelector("#form-group").addEventListener("click", buttonHandler)
 
      
   
@@ -185,7 +186,7 @@ function createBtns(){
             $('#searchHistory').prepend('<div class="form-group"><button type="button" class="d-flex w-100 btn-light border p-2 histBtn">' + recentSearches[i] +'</button></div>');  
         }
     }
-    document.querySelector(".histBtn").addEventListener("click", buttonHandler)
+    document.querySelector("#form-group").addEventListener("click", buttonHandler)
 }
 
 var buttonHandler = function (event) {
