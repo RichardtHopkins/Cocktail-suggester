@@ -185,7 +185,7 @@ function createBtns(){
             $('#searchHistory').prepend('<div class="form-group"><button type="button" class="d-flex w-100 btn-light border p-2 histBtn">' + recentSearches[i] +'</button></div>');  
         }
     }
-    histBtn.addEventListener("click", buttonHandler)
+    document.querySelector(".histBtn").addEventListener("click", buttonHandler)
 }
 
 var buttonHandler = function (event) {

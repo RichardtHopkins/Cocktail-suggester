@@ -56,9 +56,6 @@ function nearbySearch(pos, service) {
         { location: pos, radius: 5000, type: "liquor_store" },
 
         (results, status, pagination) => {
-            console.log("nearbySearchcallback");
-            console.log(results);
-            console.log(status);
             if (status !== "OK" || !results) return;
 
             addPlaces(results);
@@ -75,12 +72,9 @@ function nearbySearch(pos, service) {
 }
 
 function addPlaces(places) {
-    console.log("addPlaces");
     const placesList = document.getElementById("places");
 
     for (const place of places) {
-        console.log(place);
-        console.log(googleMap);
         if (place.geometry && place.geometry.location) {
             const image = {
                 url: place.icon,
