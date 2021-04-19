@@ -22,7 +22,7 @@ A group project to display our use of multiple API's
 ## Screenshots
 
 The following image shows the web application's appearance and functionality:
-![]()
+![](https://github.com/RichardtHopkins/Cocktail-suggester/blob/main/assets/images/Tipsy%20Tricks%20Screencapture.png)
 
 
 
