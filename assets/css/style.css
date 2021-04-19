@@ -104,3 +104,7 @@ button:disabled {
   display: none;
   height: 0;
 }
+
+.histBtn {
+  font-size:smaller;
+}

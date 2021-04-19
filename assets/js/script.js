@@ -7,6 +7,8 @@ var Cocktailingredients = []
 var logo = $("#logo")
 var input=$("#searchBar")
 var formEl = $("#ingredient-form")
+var formSubmitEl = document.querySelector("#searchBar")
+var histBtn
 
 var drinkCardIngredients = [];
 
@@ -34,19 +36,41 @@ var keyCount = 0;
 //fetch the list of drinks with ingredient that is searched
 
 //search button click event
+var formSubmitHandler = function (event) {
+    console.log("call submit form handler");
+    event.preventDefault();
+  
+    var userIngredient = $("#searchBar").val().trim();
+    console.log(userIngredient);
+    if (userIngredient) {
+      getCocktails(userIngredient);
+    } else {
+      alert('Please enter an ingredient');
+    }
+};
 
-searchButton.click(function () {
+var getCocktails = function(userIngredient) {
     $("#cocktail-card-element").html('')
     logo.addClass("hide")
-    formEl.attr("class","ingredient-form-results")
-    formEl.children().css("margin","0.5rem")
-
-    userIngredient = $("#searchBar").val();
+    //formEl.attr("class","ingredient-form-results")
+    //formEl.children().css("margin","0.5rem")
+    console.log(userIngredient);
     var ingredientNameUrl = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/filter.php?i=" + userIngredient;
     $.ajax({
         type: "GET",
         url: ingredientNameUrl
     }).then(function (response) {
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            let i = button.data('index') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text(drinkCardList[i].name)
+            $('#modal-ingredients-list').html(Cocktailingredients[i])
+
+          })
+        console.log(JSON.stringify(response, null, 2));
         for(i = 0; i < response.drinks.length; i++){
             drinkCardList[i] = {} 
             drinkCardList[i].name = response.drinks[i].strDrink;
@@ -114,11 +138,18 @@ searchButton.click(function () {
                                                     <div class="board-item-content"><a href="${Cocktailimage}" target="_blank"><img src="${Cocktailimage}" alt="cocktail-thumb" width="100"
                                                         height="150"></a> </div>
                                             <br>
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-index="${i}">
+                                            See Ingredients
+                                            </button>
+                                            <!--
                                             <div id="ingredients-${Cocktailname}">
+
                                                 <ul>
                                                     ${Cocktailingredients[i]}
                                                 </ul>
                                             </div>
+                                            -->
                                             <br>
                                             </div>
                                         </div>
@@ -138,7 +169,7 @@ searchButton.click(function () {
     //saves search to local storage.
     saveSearch();
 
-})
+}
 
 
 
@@ -155,11 +186,12 @@ function saveSearch(){
         localStorage.setItem('history', JSON.stringify(recentSearches));                        //set the local storage to be the new array.
 
         //creates a new button and adds it to the top of the recent search list.
-        $('#searchHistory').prepend('<div class="p-2"><button type="button" class="btn-primary histBtn">' + latestSearch +'</button></div>');
+        $('#searchHistory').prepend('<div class="history-group"><button type="button" class="d-flex w-100 btn-light border p-2 histBtn">' + latestSearch +'</button></div>');
         
      }else{
          console.log('nothing entered.')
      }
+     document.querySelector(".history-group").addEventListener("click", buttonHandler)
 
      
   
@@ -170,16 +202,38 @@ function createBtns(){
     recentSearches = JSON.parse(localStorage.getItem('history')) || [];
     for(var i = 0; i <= recentSearches.length -1; i++){
         if(recentSearches){
-            $('#searchHistory').prepend('<div class="p-2 form-group"><button type="button" class="btn-primary histBtn">' + recentSearches[i] +'</button></div>');  
+            $('#searchHistory').prepend('<div class="history-group"><button type="button" class="d-flex w-100 btn-light border p-2 histBtn">' + recentSearches[i] +'</button></div>');  
         }
     }
+    document.querySelector(".history-group").addEventListener("click", buttonHandler)
 }
 
+var buttonHandler = function (event) {
+    console.log($(this));
+    let userIngredient = $(this).text();
+    getCocktails(userIngredient);
+    console.log(event.target);
+}
 
-createBtns();
+searchButton.click(formSubmitHandler);
+    createBtns();
 
+//lookup full cocktail details using id
+// www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007
 
-
+//var drinkID
+//        for(i = 0; i < drinkCardList.length; i++){
+  //          drinkCardList[i].instructions = response.drinks[i].strInstructions
+    //        drinkID = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/lookup.php?i=" + drinkCardList[i].id;
+      //      !function(i){
+        //        $.ajax({
+          //          type: "GET",
+            //        url: drinkID,
+              //  }).then(function (response) {
+//
+//
+  //                  drinkCardList[i].instructions = {};
+                
 
 
 // function onPageLoad(){
