@@ -60,6 +60,16 @@ var getCocktails = function(userIngredient) {
         type: "GET",
         url: ingredientNameUrl
     }).then(function (response) {
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            let i = button.data('index') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text(drinkCardList[i].name)
+            $('#modal-ingredients-list').html(Cocktailingredients[i])
+
+          })
         console.log(JSON.stringify(response, null, 2));
         for(i = 0; i < response.drinks.length; i++){
             drinkCardList[i] = {} 
@@ -128,11 +138,18 @@ var getCocktails = function(userIngredient) {
                                                     <div class="board-item-content"><a href="${Cocktailimage}" target="_blank"><img src="${Cocktailimage}" alt="cocktail-thumb" width="100"
                                                         height="150"></a> </div>
                                             <br>
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-index="${i}">
+                                            See Ingredients
+                                            </button>
+                                            <!--
                                             <div id="ingredients-${Cocktailname}">
+
                                                 <ul>
                                                     ${Cocktailingredients[i]}
                                                 </ul>
                                             </div>
+                                            -->
                                             <br>
                                             </div>
                                         </div>
