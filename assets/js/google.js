@@ -2,7 +2,7 @@ const pos = {};
 let googleMap
 
 document.getElementById("map-display").addEventListener("click", function(e){
-    document.getElementById("map-container").style.display = "block";
+    document.getElementById("map-container").style.display = "flex";
 })
 
 function initMap() {

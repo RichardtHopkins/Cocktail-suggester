@@ -9,6 +9,7 @@ body {
 
 #map-container {
   height: 100%;
+  display: none;
 }
 
 #sidebar {
@@ -102,4 +103,8 @@ button:disabled {
   visibility: hidden;
   display: none;
   height: 0;
+}
+
+.histBtn {
+  font-size:smaller;
 }
