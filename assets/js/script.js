@@ -54,7 +54,7 @@ var getCocktails = function(userIngredient) {
     logo.addClass("hide")
     //formEl.attr("class","ingredient-form-results")
     //formEl.children().css("margin","0.5rem")
-console.log(userIngredient);
+    console.log(userIngredient);
     var ingredientNameUrl = "https://www.thecocktaildb.com/api/json/v1/" + apiKey + "/filter.php?i=" + userIngredient;
     $.ajax({
         type: "GET",
@@ -174,7 +174,7 @@ function saveSearch(){
      }else{
          console.log('nothing entered.')
      }
-     document.querySelector("#form-group").addEventListener("click", buttonHandler)
+     document.querySelector(".history-group").addEventListener("click", buttonHandler)
 
      
   
@@ -185,10 +185,10 @@ function createBtns(){
     recentSearches = JSON.parse(localStorage.getItem('history')) || [];
     for(var i = 0; i <= recentSearches.length -1; i++){
         if(recentSearches){
-            $('#searchHistory').prepend('<div class="form-group"><button type="button" class="d-flex w-100 btn-light border p-2 histBtn">' + recentSearches[i] +'</button></div>');  
+            $('#searchHistory').prepend('<div class="history-group"><button type="button" class="d-flex w-100 btn-light border p-2 histBtn">' + recentSearches[i] +'</button></div>');  
         }
     }
-    document.querySelector("#form-group").addEventListener("click", buttonHandler)
+    document.querySelector(".history-group").addEventListener("click", buttonHandler)
 }
 
 var buttonHandler = function (event) {
