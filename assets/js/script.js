@@ -205,12 +205,12 @@ function createBtns(){
             $('#searchHistory').prepend('<div class="history-group"><button type="button" class="d-flex w-100 btn-light border p-2 histBtn">' + recentSearches[i] +'</button></div>');  
         }
     }
-    document.querySelector(".history-group").addEventListener("click", buttonHandler)
+    $(".history-group").click(buttonHandler)
 }
 
 var buttonHandler = function (event) {
     console.log($(this));
-    let userIngredient = $(this).text();
+    userIngredient = $(this).text();
     getCocktails(userIngredient);
     console.log(event.target);
 }

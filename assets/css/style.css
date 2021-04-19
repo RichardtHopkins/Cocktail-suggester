@@ -106,5 +106,13 @@ button:disabled {
 }
 
 .histBtn {
-  font-size:smaller;
+  font-size: smaller;
+}
+
+.modal-footer {
+  display: none;
+}
+
+.modal-header .close {
+  width: 25%;
 }

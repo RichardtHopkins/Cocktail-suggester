@@ -2,6 +2,7 @@ const pos = {};
 let googleMap
 
 document.getElementById("map-display").addEventListener("click", function(e){
+    $("#cocktail-card-element").html('')
     document.getElementById("map-container").style.display = "flex";
 })
 
